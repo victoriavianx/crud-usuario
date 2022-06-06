@@ -6,22 +6,39 @@ const createUserService = async (name, email, password, isAdm) => {
   const userAlreadyExists = users.find((user) => user.email === email);
 
   if (userAlreadyExists) {
-    throw new Error("This email address is already being used");
+    throw new Error("E-mail already registered");
   }
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
+  const time = Date.now();
+
+  const today = new Date(time);
+
+  const dateFormated = today.toISOString();
+
   const newUser = {
-    id: uuidv4(),
+    uuid: uuidv4(),
     name,
     email,
     password: hashedPassword,
     isAdm,
+    createdOn: dateFormated,
+    updatedOn: dateFormated,
   };
 
   users.push(newUser);
 
-  return newUser;
+  const user = {
+    uuid: uuidv4(),
+    name,
+    email,
+    isAdm,
+    createdOn: dateFormated,
+    updatedOn: dateFormated,
+  };
+
+  return user;
 };
 
 export default createUserService;

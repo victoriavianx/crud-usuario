@@ -7,7 +7,7 @@ const updateUserService = (name, email, id) => {
     email,
   };
 
-  const userIndex = users.findIndex((user) => user.id === id);
+  const userIndex = users.findIndex((user) => user.uuid === id);
 
   if (userIndex === -1) {
     throw new Error("User not found");

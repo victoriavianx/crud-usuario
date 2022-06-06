@@ -4,6 +4,7 @@ import deleteUserService from "../services/users/deleteUser.service";
 import listUserService from "../services/users/listUser.service";
 import profileUserService from "../services/users/profileUser.service";
 import updateUserService from "../services/users/updateUser.service";
+import jwt from "jsonwebtoken";
 
 export const createUser = async (req, res) => {
   const { name, email, password, isAdm } = req.body;
@@ -54,7 +55,7 @@ export const deleteUser = (req, res) => {
 };
 
 export const profileUser = (req, res) => {
-  const { id } = req.params;
+  const id = req.user.uuid;
 
   try {
     const user = profileUserService(id);

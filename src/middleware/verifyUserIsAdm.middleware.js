@@ -1,9 +1,7 @@
 import users from "../database";
 
 const verifyUserIsAdm = (req, res, next) => {
-  const { isAdm } = req.body;
-
-  const userIsAdm = users.find((user) => user.isAdm === isAdm);
+  const userIsAdm = users.find((user) => user.isAdm === true);
 
   if (!userIsAdm) {
     return res.status(401).json({
@@ -11,7 +9,7 @@ const verifyUserIsAdm = (req, res, next) => {
     });
   }
 
-  next();
+  return next();
 };
 
 export default verifyUserIsAdm;

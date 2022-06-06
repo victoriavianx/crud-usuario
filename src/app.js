@@ -13,3 +13,5 @@ const port = 3000;
 app.listen(port, () => {
   console.log(`O app está rodando na porta ${port}`);
 });
+
+export default app;

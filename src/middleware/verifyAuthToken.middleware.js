@@ -1,23 +1,28 @@
 import jwt from "jsonwebtoken";
 
 const verifyAuthToken = (req, res, next) => {
-  const token = req.headers.authorization;
+  let token = req.headers.authorization;
 
   if (!token) {
     return res.status(401).json({
-      message: "Missing authorization token",
+      message: "Missing authorization headers",
     });
   }
 
-  token = token.split("")[1];
+  token = token.split(" ")[1];
 
   jwt.verify(token, "SECRET_KEY", (error, decoded) => {
     if (error) {
       return res.status(401).json({ message: "Invalid token" });
     }
+
+    req.user = {
+      uuid: decoded.sub,
+      isAdm: decoded.isAdm,
+    };
   });
 
-  next();
+  return next();
 };
 
 export default verifyAuthToken;
