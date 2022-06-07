@@ -22,7 +22,7 @@ const verifyAuthToken = (req, res, next) => {
     };
   });
 
-  return next();
+  next();
 };
 
 export default verifyAuthToken;

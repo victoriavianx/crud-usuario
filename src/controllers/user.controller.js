@@ -4,7 +4,6 @@ import deleteUserService from "../services/users/deleteUser.service";
 import listUserService from "../services/users/listUser.service";
 import profileUserService from "../services/users/profileUser.service";
 import updateUserService from "../services/users/updateUser.service";
-import jwt from "jsonwebtoken";
 
 export const createUser = async (req, res) => {
   const { name, email, password, isAdm } = req.body;
@@ -20,36 +19,45 @@ export const createUser = async (req, res) => {
 };
 
 export const listUser = (req, res) => {
-  const users = listUserService();
+  try {
+    const users = listUserService();
 
-  return res.status(200).json(users);
+    return res.status(200).json(users);
+  } catch (error) {
+    return res.status(401).json({
+      message: "Unauthorized",
+    });
+  }
 };
 
 export const updateUser = (req, res) => {
-  try {
-    const { id } = req.params;
-    const { name, email } = req.body;
+  const { uuid } = req.params;
+  const { name, email } = req.body;
+  const { isAdm } = req.user;
 
-    const updatedUser = updateUserService(name, email, id);
+  try {
+    const updatedUser = updateUserService(name, email, uuid, isAdm);
 
     return res.status(200).json(updatedUser);
   } catch (error) {
-    return res.status(404).json({
+    return res.status(401).json({
       message: error.message,
     });
   }
 };
 
 export const deleteUser = (req, res) => {
-  const { id } = req.params;
+  const { uuid } = req.params;
 
   try {
-    const deletedUser = deleteUserService(id);
+    const deletedUser = deleteUserService(uuid);
 
-    return res.status(200).json(deletedUser);
+    return res.status(200).json({
+      message: deletedUser,
+    });
   } catch (error) {
-    return res.status(404).json({
-      message: error.message,
+    return res.status(401).json({
+      message: "Missing admin permissions",
     });
   }
 };
@@ -62,7 +70,7 @@ export const profileUser = (req, res) => {
 
     return res.status(200).json(user);
   } catch (error) {
-    return res.status(404).json({
+    return res.status(401).json({
       message: error.message,
     });
   }

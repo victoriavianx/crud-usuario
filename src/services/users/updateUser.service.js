@@ -1,17 +1,23 @@
 import users from "../../database";
-import * as bcrypt from "bcryptjs";
+import { v4 as uuidv4 } from "uuid";
 
-const updateUserService = (name, email, id) => {
-  const updateUser = {
-    name,
-    email,
-  };
-
+const updateUserService = (name, email, id, isAdm) => {
   const userIndex = users.findIndex((user) => user.uuid === id);
 
-  if (userIndex === -1) {
-    throw new Error("User not found");
-  }
+  const time = Date.now();
+
+  const today = new Date(time);
+
+  const dateFormated = today.toISOString();
+
+  const updateUser = {
+    uuid: id,
+    name,
+    email,
+    isAdm: isAdm,
+    createdOn: dateFormated,
+    updatedOn: dateFormated,
+  };
 
   users[userIndex] = { ...users[userIndex], ...updateUser };
 
