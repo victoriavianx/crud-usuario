@@ -1,15 +1,13 @@
 import users from "../database";
 
 const verifyUserIsAdm = (req, res, next) => {
-  const userIsAdm = req.user.isAdm;
+  const isAdm = req.user.isAdm;
 
-  if (!userIsAdm) {
-    return res.status(401).json({
-      message: "Unauthorized",
-    });
+  if (isAdm) {
+    next();
   }
 
-  next();
+  return res.status(401).send({ message: "Unauthorized" });
 };
 
 export default verifyUserIsAdm;

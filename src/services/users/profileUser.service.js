@@ -1,7 +1,7 @@
 import users from "../../database";
 
-const profileUserService = (id) => {
-  let user = users.find((user) => user.uuid === id);
+const profileUserService = (uuid) => {
+  let user = users.find((user) => user.uuid === uuid);
 
   if (!user) {
     throw new Error("User not found");

@@ -31,12 +31,12 @@ export const listUser = (req, res) => {
 };
 
 export const updateUser = (req, res) => {
-  const { uuid } = req.params;
+  const idParam = req.params.uuid;
   const { name, email } = req.body;
-  const { isAdm } = req.user;
+  const { isAdm, uuid } = req.user;
 
   try {
-    const updatedUser = updateUserService(name, email, uuid, isAdm);
+    const updatedUser = updateUserService(name, email, uuid, isAdm, idParam);
 
     return res.status(200).json(updatedUser);
   } catch (error) {
@@ -47,26 +47,27 @@ export const updateUser = (req, res) => {
 };
 
 export const deleteUser = (req, res) => {
-  const { uuid } = req.params;
+  const idParam = req.params.uuid;
+  const { isAdm, uuid } = req.user;
 
   try {
-    const deletedUser = deleteUserService(uuid);
+    const deletedUser = deleteUserService(uuid, isAdm, idParam);
 
     return res.status(200).json({
       message: deletedUser,
     });
   } catch (error) {
     return res.status(401).json({
-      message: "Missing admin permissions",
+      message: error.message,
     });
   }
 };
 
 export const profileUser = (req, res) => {
-  const id = req.user.uuid;
+  const uuid = req.user.uuid;
 
   try {
-    const user = profileUserService(id);
+    const user = profileUserService(uuid);
 
     return res.status(200).json(user);
   } catch (error) {

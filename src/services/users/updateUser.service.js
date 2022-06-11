@@ -1,8 +1,11 @@
 import users from "../../database";
-import { v4 as uuidv4 } from "uuid";
 
-const updateUserService = (name, email, id, isAdm) => {
-  const userIndex = users.findIndex((user) => user.uuid === id);
+const updateUserService = (name, email, uuid, isAdm, idParam) => {
+  if (uuid !== idParam && isAdm === false) {
+    throw new Error("Missing admin permissions");
+  }
+
+  const userIndex = users.findIndex((user) => user.uuid === uuid);
 
   const time = Date.now();
 
@@ -11,7 +14,7 @@ const updateUserService = (name, email, id, isAdm) => {
   const dateFormated = today.toISOString();
 
   const updateUser = {
-    uuid: id,
+    uuid: uuid,
     name,
     email,
     isAdm: isAdm,
@@ -21,7 +24,9 @@ const updateUserService = (name, email, id, isAdm) => {
 
   users[userIndex] = { ...users[userIndex], ...updateUser };
 
-  return users[userIndex];
+  const updatedUser = { ...updateUser };
+
+  return updatedUser;
 };
 
 export default updateUserService;
