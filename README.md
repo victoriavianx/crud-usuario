@@ -1,4 +1,22 @@
-# Express: CRUD de usuário + permissão de administrador
+# 👥 Express: CRUD de usuário + permissão de administrador
+
+A API permite a criação, listagem, atualização e deleção de usuário, além de logar o usuário.
+
+## 🗃 Documentação da API
+
+→ ![Clique aqui para acessar a documentação]("https://victoriavianx.github.io/crud-usuario-doc/")
+
+## 💻 Tecnologias
+
+- _Node.JS_
+- _Express_
+- _Nodemon/Sucrase_
+- _Bcryptjs_
+- _JWT_
+- _UUID_
+- _Yup_
+
+## 🧐 Como utilizar
 
 Para inciar este projeto, é necessário instalar as dependências, que serão utilizadas nos testes. Portanto utilize o comando abaixo para instalar tais dependências:
 
@@ -20,7 +38,7 @@ Caso não possua o yarn instalado, utilize o comando abaixo para instalar global
 ````
 npm install --global yarn
 ````
-# **Sobre os testes**
+## **Sobre os testes**
 
 Essa aplicação possui testes, que serão utilizados para validar, se todas as regras de negócio foram aplicadas de maneira correta.
 
@@ -33,7 +51,7 @@ Além disso, é importante não alterar o arquivo `.babelrc`. (não se preocupe 
 E também não altere o script de `test` localizado no `package.json`. Isso será utilizado para rodar os testes.
 
 
-# **Rodando os testes** 
+## **Rodando os testes** 
 
 Para rodar os testes é necessário que no seu terminal, você esteja dentro do diretório do projeto.
 
