@@ -15,7 +15,7 @@ const userRouter = Router();
 
 userRouter.post("", schemaValidation(userSchema), createUser);
 userRouter.get("", verifyAuthToken, verifyUserIsAdm, listUser);
-userRouter.get("/profile", verifyAuthToken, profileUser);
+userRouter.get("/profile/:uuid", verifyAuthToken, profileUser);
 userRouter.patch("/:uuid", verifyAuthToken, updateUser);
 userRouter.delete("/:uuid", verifyAuthToken, deleteUser);
 
