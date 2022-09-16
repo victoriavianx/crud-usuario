@@ -4,7 +4,7 @@ A API permite a criação, listagem, atualização e deleção de usuário, alé
 
 ## 🗃 Documentação da API
 
-→ ![Clique aqui para acessar a documentação]("https://victoriavianx.github.io/crud-usuario-doc/")
+→ <a name="crud-usuario-doc" href="https://victoriavianx.github.io/crud-usuario-doc/">Clique aqui para acessar a documentação</a>
 
 ## 💻 Tecnologias
 
